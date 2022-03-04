@@ -12,16 +12,14 @@ script:
 after_success:
   # Build prod images for the 4 services (using the 
   # default filename "Dockerfile").
-  - docker build -t th-lamb/multi-client ./client
-  - docker build -t th-lamb/multi-nginx ./nginx
-  - docker build -t th-lamb/multi-server ./server
-  - docker build -t th-lamb/multi-worker ./worker
-
+  - docker build -t tlambeck/multi-client ./client
+  - docker build -t tlambeck/multi-nginx ./nginx
+  - docker build -t tlambeck/multi-server ./server
+  - docker build -t tlambeck/multi-worker ./worker
   # Log in to the docker CLI.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  
   # Take those images and push them to Docker Hub.
-  - docker push th-lamb/multi-client
-  - docker push th-lamb/multi-nginx
-  - docker push th-lamb/multi-server
-  - docker push th-lamb/multi-worker
+  - docker push tlambeck/multi-client
+  - docker push tlambeck/multi-nginx
+  - docker push tlambeck/multi-server
+  - docker push tlambeck/multi-worker
