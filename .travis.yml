@@ -6,7 +6,8 @@ before_install:
   - docker build -t th-lamb/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run th-lamb/react-test npm run test -- --coverage
+  #- docker run th-lamb/react-test npm run test -- --coverage
+  - docker run -e CI=true th-lamb/react-test npm test
 
 after_success:
   # Build prod images for the 4 services (using the 
