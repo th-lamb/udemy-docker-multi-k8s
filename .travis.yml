@@ -16,8 +16,10 @@ after_success:
   - docker build -t tlambeck/multi-nginx ./nginx
   - docker build -t tlambeck/multi-server ./server
   - docker build -t tlambeck/multi-worker ./worker
+
   # Log in to the docker CLI.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
   # Take those images and push them to Docker Hub.
   - docker push tlambeck/multi-client
   - docker push tlambeck/multi-nginx
