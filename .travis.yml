@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t th-lamb/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run th-lamb/react-test npm test -- --coverage
+
+after_success:
+  # Build prod images for the 4 services (using the 
+  # default filename "Dockerfile").
+  - docker build -t th-lamb/multi-client ./client
+  - docker build -t th-lamb/multi-nginx ./nginx
+  - docker build -t th-lamb/multi-server ./server
+  - docker build -t th-lamb/multi-worker ./worker
+
+  # Log in to the docker CLI.
+  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_ID}" --password-stdin
+
+  # Take those images and push them to Docker Hub.
+  - docker push th-lamb/multi-client
+  - docker push th-lamb/multi-nginx
+  - docker push th-lamb/multi-server
+  - docker push th-lamb/multi-worker
