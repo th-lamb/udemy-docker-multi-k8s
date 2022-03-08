@@ -8,7 +8,7 @@ services:
     hostname: client
   server:
     image: "tlambeck/udemy-docker-multi-server"
-    mem_limit: 128m
+    # mem_limit: 128m
     # hostname = api because of our nginx config.
     hostname: api
     environment:
@@ -21,14 +21,14 @@ services:
       - PGPORT=$PGPORT
   worker:
     image: "tlambeck/udemy-docker-multi-worker"
-    mem_limit: 128m
+    # mem_limit: 128m
     hostname: worker
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
   nginx:
     image: "tlambeck/udemy-docker-multi-nginx"
-    mem_limit: 128m
+    # mem_limit: 128m
     hostname: nginx
     ports:
       - "80:80"
