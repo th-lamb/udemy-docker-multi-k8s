@@ -1,48 +1,34 @@
-version: '3'
+# Production only - new Amazon Linux 2 platform
+# https://ausytechnologies.udemy.com/course/docker-and-kubernetes-the-complete-guide/learn/lecture/28089952#questions
+version: "3"
 services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      - POSTGRES_PASSWORD=postgres_password
-  redis:
-    image: 'redis:latest'
-  nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - '3050:80'
-  api:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./server
-    volumes:
-      - /app/node_modules
-      - ./server:/app
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
   client:
-    stdin_open: true
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./client
-    volumes:
-      - /app/node_modules
-      - ./client:/app
-  worker:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./worker
-    volumes:
-      - /app/node_modules
-      - ./worker:/app
+    image: "tlambeck/udemy-docker-multi-client"
+    mem_limit: 128m
+    hostname: client
+  server:
+    image: "tlambeck/udemy-docker-multi-server"
+    mem_limit: 128m
+    # hostname = api because of our nginx config.
+    hostname: api
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PGUSER=$PGUSER
+      - PGHOST=$PGHOST
+      - PGDATABASE=$PGDATABASE
+      - PGPASSWORD=$PGPASSWORD
+      - PGPORT=$PGPORT
+  worker:
+    image: "tlambeck/udemy-docker-multi-worker"
+    mem_limit: 128m
+    hostname: worker
+    environment:
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+  nginx:
+    image: "tlambeck/udemy-docker-multi-nginx"
+    mem_limit: 128m
+    hostname: nginx
+    ports:
+      - "80:80"

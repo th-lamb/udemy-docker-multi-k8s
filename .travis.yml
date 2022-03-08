@@ -25,3 +25,16 @@ after_success:
   - docker push tlambeck/udemy-docker-multi-nginx
   - docker push tlambeck/udemy-docker-multi-server
   - docker push tlambeck/udemy-docker-multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'udemy-docker-multi'
+  env: 'Udemydockermulti-env-1'
+  bucket_name: 'elasticbeanstalk-us-east-1-121986536897'
+  bucket_path: 'udemy-docker-multi'
+  # Only deploy for the master branch!
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
