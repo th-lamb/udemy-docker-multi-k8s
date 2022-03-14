@@ -1,7 +1,0 @@
-FROM nginx
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-
-# https://hub.docker.com/_/nginx says:
-#COPY ./default.conf /etc/nginx/nginx.conf
-# But this causes error: "upstream" directive is not allowed 
-# here in /etc/nginx/nginx.conf
