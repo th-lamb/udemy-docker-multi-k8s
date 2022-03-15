@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: postgres-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: redis
+      component: postgres
   template:
     metadata:
       labels:
-        component: redis
+        component: postgres
     spec:
       containers:
-      - name: redis
-        image: redis            # Just the standard version
+      - name: postgres
+        image: postgres         # Just the standard version
         ports:
-        - containerPort: 6379   # Redis default port
+        - containerPort: 5432   # Postgres default port
         # The IDE suggests resource limits!
         resources:
           limits:
