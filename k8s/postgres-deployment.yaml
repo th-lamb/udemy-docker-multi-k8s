@@ -12,11 +12,19 @@ spec:
       labels:
         component: postgres
     spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
       containers:
       - name: postgres
         image: postgres         # Just the standard version
         ports:
         - containerPort: 5432   # Postgres default port
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data   # postgres data folder
+            subPath: postgres   # subfolder inside the volume claim
+            name: postgres-storage
         # The IDE suggests resource limits!
         resources:
           limits:
