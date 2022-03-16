@@ -1,0 +1,12 @@
+# https://ausytechnologies.udemy.com/course/docker-and-kubernetes-the-complete-guide/learn/lecture/15492160#questions
+# 1. Install Kubernetes Dashboard
+#    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+# 2. dash-admin-user configuration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+# 3. Create dash-clusterrole-yaml
+# ...
