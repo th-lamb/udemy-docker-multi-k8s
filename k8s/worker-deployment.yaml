@@ -18,6 +18,11 @@ spec:
         # No ports required because nothing needs to connect to the worker.
         #ports:
         #- containerPort: <Port>
+        env:
+          - name: REDIS_HOST
+            value: redis-cluster-ip-service
+          - name: REDIS_PORT
+            value: 6379
         # The IDE suggests resource limits!
         resources:
           limits:
