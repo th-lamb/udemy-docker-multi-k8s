@@ -31,6 +31,12 @@ spec:
             value: 5432
           - name: PGDATABASE
             value: postgres
+          - name: PGPASSWORD      # Name of the env. variable inside the container (not our secret created using "kubectl create secret ...")
+            valueFrom:
+              secretKeyRef:       # Our secret, created using "kubectl create secret ..."
+                name: pgpassword  # -> Name of our secret
+                key: PGPASSWORD   # -> The key "inside" the secret
+                                  # Note: key and env. variable can have different names!
         # The IDE suggests resource limits!
         resources:
           limits:
