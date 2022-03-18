@@ -38,7 +38,7 @@ spec:
                 key: PGPASSWORD   # -> The key "inside" the secret
                                   # Note: key and env. variable can have different names!
         # The IDE suggests resource limits!
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        #resources:
+        #  limits:
+        #    memory: "128Mi"
+        #    cpu: "500m"

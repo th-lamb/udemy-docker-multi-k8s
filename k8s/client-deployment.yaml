@@ -19,7 +19,7 @@ spec:
         ports:
         - containerPort: 3000
         # The IDE suggests resource limits!
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        #resources:
+        #  limits:
+        #    memory: "128Mi"
+        #    cpu: "500m"
